@@ -9,7 +9,23 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(),
+      body: ListView(
+        padding: const EdgeInsets.all(15),
+        children: const [
+          ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                'https://avatars.githubusercontent.com/u/78877517?v=4',
+              ),
+            ),
+            title: Text(
+              'William Santos Dantas',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

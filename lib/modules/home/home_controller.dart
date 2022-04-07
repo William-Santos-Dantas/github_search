@@ -1,41 +1,43 @@
 import 'package:get/get.dart';
+import 'package:profile_github/models/user_model.dart';
 import '../../application/ui/loader/loader_mixin.dart';
 import '../../application/ui/messages/messages_mixin.dart';
+import '../../services/user/user_service.dart';
 
 class HomeController extends GetxController with LoaderMixin, MessagesMixin {
-  final loading = false.obs;
-  final message = Rxn<MessageModel>();
-  final _text = ''.obs;
-  get text => _text.value;
+  final _loading = false.obs;
+  final _message = Rxn<MessageModel>();
+  final UserService _userService;
+  String text = 'teste';
+  final users = <UserModel>[].obs;
 
-  HomeController();
+  HomeController({required UserService userService})
+      : _userService = userService;
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
-    loaderListener(loading);
-    messageListener(message);
+    loaderListener(_loading);
+    messageListener(_message);
+    await getUsers();
   }
 
-  void comparePrice({
-    required String firstProduct,
-    required double firstPrice,
-    required double secondPrice,
-    required String secondProduct,
-    required double firstQuantity,
-    required double secondQuantity,
-  }) {
-    double firstPriceML = firstPrice / firstQuantity;
-    double secondPriceML = secondPrice / secondQuantity;
-    double diference = 0;
-    if (firstPriceML < secondPriceML) {
-      diference = secondPriceML - firstPriceML;
-      _text(
-          'Você tem uma economia de $diference por litro comprando o $firstProduct');
-    } else {
-      diference = firstPriceML - secondPriceML;
-      _text(
-          'economia de R\$${diference.toStringAsPrecision(2)} por litro comprando $secondProduct');
+  Future<void> getUsers() async {
+    try {
+      _loading.toggle();
+      final usersData = await _userService.getUsers();
+      users.assignAll(usersData);
+      _loading.toggle();
+    } catch (e, s) {
+      _loading.toggle();
+      print(e);
+      print(s);
+      _message(
+        MessageModel.error(
+          title: 'Erro',
+          message: 'Erro ao carregar Dados dos Usuarios',
+        ),
+      );
     }
   }
 }

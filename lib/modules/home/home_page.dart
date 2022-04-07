@@ -8,23 +8,28 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        padding: const EdgeInsets.all(15),
-        children: const [
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                'https://avatars.githubusercontent.com/u/78877517?v=4',
-              ),
-            ),
-            title: Text(
-              'William Santos Dantas',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+      body: Obx(
+        () => SafeArea(
+          child: ListView.builder(
+            itemCount: controller.users.length,
+            padding: const EdgeInsets.all(15),
+            itemBuilder: (context, index) {
+              var user = controller.users[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    user.avatar_url,
+                  ),
+                ),
+                title: Text(
+                  user.login,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              );
+            },
           ),
-        ],
+        ),
       ),
     );
   }

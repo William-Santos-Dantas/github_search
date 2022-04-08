@@ -8,7 +8,6 @@ class HomeController extends GetxController with LoaderMixin, MessagesMixin {
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
   final UserService _userService;
-  String text = 'teste';
   final users = <UserModel>[].obs;
 
   HomeController({required UserService userService})

@@ -11,6 +11,7 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         title: CustomTextField(
+          hintText: 'Quem você esta procurando?',
           onSearch: (search) {
             controller.filterUsers(search);
           },
@@ -28,6 +29,9 @@ class HomePage extends GetView<HomeController> {
               return Card(
                 elevation: 10,
                 child: ListTile(
+                  onTap: (){
+                    Get.toNamed('/profile');
+                  },
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
                       user.avatar_url,

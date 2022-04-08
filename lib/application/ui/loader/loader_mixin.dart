@@ -6,10 +6,10 @@ mixin LoaderMixin on GetxController {
     ever<bool>(loaderRx, (loading) async {
       if (loading) {
         await Get.dialog(
-          const Center(child: CircularProgressIndicator()),
+          const Center(child: CircularProgressIndicator(color: Colors.blue)),
           barrierDismissible: false,
         );
-      }else{
+      } else {
         Get.back();
       }
     });

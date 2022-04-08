@@ -11,7 +11,9 @@ final UserRepository _userRepository;
 
 
   @override
-  Future<List<UserModel>> getUsers() async => _userRepository.getUsers();
+  Future<List<UserModel>> getUsers() => _userRepository.getUsers();
 
+  @override
+  Future<List<UserModel>> filterUsers(String search) => _userRepository.filterUsers(search);
 
 }

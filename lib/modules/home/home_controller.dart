@@ -15,10 +15,14 @@ class HomeController extends GetxController with LoaderMixin, MessagesMixin {
       : _userService = userService;
 
   @override
-  void onInit() async{
+  void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+  }
+
+  @override
+  void onReady() async {
     await getUsers();
   }
 
@@ -30,6 +34,23 @@ class HomeController extends GetxController with LoaderMixin, MessagesMixin {
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
+      print(e);
+      print(s);
+      _message(
+        MessageModel.error(
+          title: 'Erro',
+          message: 'Erro ao carregar Dados dos Usuarios',
+        ),
+      );
+    }
+  }
+
+  Future<void> filterUsers(String search) async {
+    print(search);
+    try {
+      final usersData = await _userService.filterUsers(search);
+      users.assignAll(usersData);
+    } catch (e, s) {
       print(e);
       print(s);
       _message(

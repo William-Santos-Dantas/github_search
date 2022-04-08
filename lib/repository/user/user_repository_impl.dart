@@ -33,5 +33,28 @@ final RestClient _restClient;
     return result.body ?? <UserModel>[];
   }
 
+  @override
+  Future<List<UserModel>> filterUsers(String search) async{
+    final result = await _restClient.get<List<UserModel>>(
+      'search/users',
+      query: {
+        'q': search
+      },
+      decoder: (data) {
+        final resultData = data['items'];
+        if (resultData != null) {
+          return resultData
+              .map<UserModel>((g) => UserModel.fromMap(g))
+              .toList();
+        }
+        return <UserModel>[];
+      },
+    );
 
+    if (result.hasError) {
+      throw Exception('Erro ao Buscar Genres [${result.statusText}]');
+    }
+
+    return result.body ?? <UserModel>[];
+  }
 }

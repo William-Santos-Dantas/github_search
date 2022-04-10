@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import '../../../models/user_model.dart';
 import 'social_item.dart';
 
 class ProfileInfo extends StatelessWidget {
-  const ProfileInfo({Key? key}) : super(key: key);
+  final UserModel user;
+  const ProfileInfo({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +15,16 @@ class ProfileInfo extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              SocialItem(label: 'Repository', value: '8'),
-              SocialItem(label: 'Gists', value: '0'),
-              SocialItem(label: 'Followers', value: '1'),
-              SocialItem(label: 'Following', value: '0'),
+            children: [
+              SocialItem(label: 'Repository', value: user.public_repos.toString()),
+              SocialItem(label: 'Gists', value: user.public_gists.toString()),
+              SocialItem(label: 'Followers', value: user.followers.toString()),
+              SocialItem(label: 'Following', value: user.following.toString()),
             ],
           ),
           const SizedBox(height: 10),
           AutoSizeText(
-            'William Santos Dantas',
+            user.name.isEmpty ? user.login : user.name,
             maxLines: 1,
             style: TextStyle(
               fontSize: 25,
@@ -39,7 +41,7 @@ class ProfileInfo extends StatelessWidget {
               Icon(Icons.location_pin, size: 20, color: Colors.grey[400]),
               const SizedBox(width: 5),
               Text(
-                'Recife, Pernambuco',
+                user.location.isEmpty ? 'No Location' : user.location,
                 overflow: TextOverflow.visible,
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -53,7 +55,7 @@ class ProfileInfo extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           AutoSizeText(
-            'Mussum Ipsum, cacilds vidis litro abertis. Não sou faixa preta cumpadi, sou preto inteiris, inteiris.Cevadis im ampola pa arma uma pindureta.Sapien in monti palavris qui num significa nadis i pareci latim.Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis.',
+            user.bio.isEmpty ? 'No Bio' : user.bio,
             overflow: TextOverflow.visible,
             textAlign: TextAlign.justify,
             style: TextStyle(

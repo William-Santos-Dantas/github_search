@@ -7,12 +7,12 @@ class UserModel {
   final String name;
   final String email;
   final String location;
-  final String hireable;
+  final bool hireable;
   final String bio;
-  final double bublic_repos;
-  final String public_gists;
-  final String followers;
-  final String following;
+  final int public_repos;
+  final int public_gists;
+  final int followers;
+  final int following;
   
   UserModel({
     required this.login,
@@ -23,7 +23,7 @@ class UserModel {
     required this.location,
     required this.hireable,
     required this.bio,
-    required this.bublic_repos,
+    required this.public_repos,
     required this.public_gists,
     required this.followers,
     required this.following,
@@ -40,7 +40,7 @@ class UserModel {
       'location': location,
       'hireable': hireable,
       'bio': bio,
-      'bublic_repos': bublic_repos,
+      'public_repos': public_repos,
       'public_gists': public_gists,
       'followers': followers,
       'following': following,
@@ -55,12 +55,12 @@ class UserModel {
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       location: map['location'] ?? '',
-      hireable: map['hireable'] ?? '',
+      hireable: map['hireable'] ?? false,
       bio: map['bio'] ?? '',
-      bublic_repos: map['bublic_repos']?.toDouble() ?? 0.0,
-      public_gists: map['public_gists'] ?? '',
-      followers: map['followers'] ?? '',
-      following: map['following'] ?? '',
+      public_repos: map['public_repos'] ?? 0,
+      public_gists: map['public_gists'] ?? 0,
+      followers: map['followers'] ?? 0,
+      following: map['following'] ?? 0,
     );
   }
 

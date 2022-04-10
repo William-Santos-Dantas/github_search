@@ -8,12 +8,15 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController c = TextEditingController();
     return TextField(
-      onChanged: onSearch,
+      controller: c,
       decoration: InputDecoration(
         hintText: hintText,
         suffixIcon: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            onSearch(c.text);
+          },
           icon: const Icon(Icons.search),
         ),
       ),

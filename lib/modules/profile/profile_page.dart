@@ -10,20 +10,20 @@ class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Stack(
-        children: [
-          const HeaderBackground(),
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 150),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                ProfilePanel(),
-              ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            const HeaderBackground(),
+            Padding(
+              padding: const EdgeInsets.only(top: 150),
+              child: Obx(
+                () => ProfilePanel(
+                  user: controller.user,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

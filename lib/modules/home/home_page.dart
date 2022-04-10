@@ -30,7 +30,7 @@ class HomePage extends GetView<HomeController> {
                 elevation: 10,
                 child: ListTile(
                   onTap: (){
-                    Get.toNamed('/profile');
+                    Get.toNamed('/profile', arguments: user.login);
                   },
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
@@ -38,7 +38,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   title: Text(
-                    user.login,
+                    user.name.isEmpty ? user.login : user.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
